@@ -1,4 +1,4 @@
-![Data Pipeline CI](https://github.com/YOUR_USERNAMEjabnil/Data-Portfolio/tree/main/Project-01-Sales-Analysis/actions/workflows/ci.yml/badge.svg)
+
 
 # Project 01 E-commerce Sales Analysis
 
