@@ -1,0 +1,30 @@
+version: '3.8'
+
+services:
+  # Database Service
+  db:
+    image: postgres:15
+    container_name: ecommerce_db
+    restart: always
+    environment:
+      POSTGRES_USER: analyst
+      POSTGRES_PASSWORD: password123
+      POSTGRES_DB: ecommerce_sales
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+
+  # Python Analysis Service
+  analysis:
+    build: .
+    container_name: ecommerce_analysis
+    volumes:
+      - .:/app
+    depends_on:
+      - db
+    environment:
+      - DATABASE_URL=postgresql://analyst:password123@db:5432/ecommerce_sales
+
+volumes:
+  postgres_data:
