@@ -1,6 +1,0 @@
-# Ignore python cache
-__pycache__/
-.ipynb_checkpoints/
-
-# Ignore large data files if they exceed 50MB
-data/raw/*.csv

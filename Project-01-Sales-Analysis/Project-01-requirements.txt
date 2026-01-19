@@ -22,4 +22,4 @@ filelock>=3.20.3
 sqlalchemy==2.0.21
 psycopg2-binary==2.9.9
 
-# pip install -r requirements.txt
+# pip install -r Project-01-requirements.txt
