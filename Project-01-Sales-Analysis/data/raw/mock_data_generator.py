@@ -1,3 +1,6 @@
+# This code will will generate a file named raw_ecommerce_sales.csv 
+# with 1,000 rows of data, including intentional errors (missing values, duplicates, and outliers)
+
 import pandas as pd
 import numpy as np
 import random
@@ -13,7 +16,7 @@ categories = ['Electronics', 'Home & Kitchen', 'Fashion', 'Beauty', 'Sports', No
 # 1. Generate Basic Data
 data = {
     'order_id': [1000 + i for i in range(num_rows)],
-    'order_date': [datetime(2023, 1, 1) + timedelta(days=random.randint(0, 730)) for _ in range(num_rows)],
+    'order_date': [datetime(2025, 1, 1) + timedelta(days=random.randint(0, 730)) for _ in range(num_rows)],
     'customer_id': [random.randint(1, 200) for _ in range(num_rows)],
     'category': [random.choice(categories) for _ in range(num_rows)],
     'sales_amount': [round(random.uniform(10.0, 500.0), 2) for _ in range(num_rows)],
