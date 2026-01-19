@@ -1,7 +1,12 @@
-# GitHub Codespaces ♥️ Jupyter Notebooks
+# Project 01 E-commerce Sales Analysis
 
-Welcome to your shiny new codespace! We've got everything fired up and running for you to explore Python and Jupyter notebooks.
+## Goal: Identify $150K in "lost" profit by analyzing underperforming product categories and calculating Year-over-Year (YoY) growth trends across 1,000+ orders.
 
-You've got a blank canvas to work on from a git perspective as well. There's a single initial commit with what you're seeing right now - where you go from here is up to you!
+### The Business Problem:
+* The executive team observed a stagnation in revenue despite higher marketing spend. This project identifies which categories are dragging down margins and who the highest-value customers are to help reallocate the Q4 budget effectively.
 
-Everything you do here is contained within this one codespace. There is no repository on GitHub yet. If and when you’re ready you can click "Publish Branch" and we’ll create your repository and push up your project. If you were just exploring then and have no further need for this code then you can simply delete your codespace and it's gone forever.
+### Tech Stack:
+* Python (Pandas/NumPy): For Data cleaning.
+* SQL (PostgreSQL): For more advanced analysis.
+* Power BI: For data visualization.
+* Codespaces with Jupyter Notebooks: Best environment for experimentation and data exploration.
