@@ -1,3 +1,5 @@
+![Data Pipeline CI](https://github.com/YOUR_USERNAMEjabnil/Data-Portfolio/tree/main/Project-01-Sales-Analysis/actions/workflows/ci.yml/badge.svg)
+
 # Project 01 E-commerce Sales Analysis
 
 ## Goal: Identify $150K in "lost" profit by analyzing underperforming product categories and calculating Year-over-Year (YoY) growth trends across 1,000+ orders.
