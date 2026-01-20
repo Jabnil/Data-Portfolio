@@ -18,7 +18,7 @@ engine = create_engine(connection_string)
 def load_data():
     try:
         # 2. Load the cleaned CSV
-        file_path = 'data/processed/cleaned_sales_data.csv'
+        file_path = '/workspaces/Data-Portfolio/Project-01-Sales-Analysis/data/processed/cleaned_sales_data.csv'
         df = pd.read_csv(file_path)
         
         # Convert date column to ensure SQL recognizes it correctly

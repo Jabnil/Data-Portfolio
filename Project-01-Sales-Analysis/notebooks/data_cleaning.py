@@ -2,7 +2,7 @@ import pandas as pd
 import numpy as np
 
 # 1. Load the raw data
-df = pd.read_csv('raw_ecommerce_sales.csv')
+df = pd.read_csv('/workspaces/Data-Portfolio/Project-01-Sales-Analysis/data/raw/raw_ecommerce_sales.csv')
 
 # 2. Handling Missing Values
 # Fill missing 'Category' with 'Uncategorized' and drop rows without Order IDs
@@ -25,6 +25,6 @@ df = df[(df['sales_amount'] > 0) & (df['quantity'] > 0)]
 df['profit_margin'] = (df['profit'] / df['sales_amount']) * 100
 
 # 7. Export Clean Data for SQL Import
-df.to_csv('cleaned_sales_data.csv', index=False)
+df.to_csv('/workspaces/Data-Portfolio/Project-01-Sales-Analysis/data/processed/cleaned_sales_data.csv', index=False)
 
 print("Data Cleaning Complete. Ready for SQL Import.")
