@@ -2,16 +2,18 @@ name: Data Pipeline CI
 
 on:
   push:
-    branches: [ "main" ]
+    paths:
+      - 'Project-01-Sales-Analysis/**'
   pull_request:
-    branches: [ "main" ]
+    paths:
+      - 'Project-01-Sales-Analysis/**'
 
 jobs:
   build-and-test:
     runs-on: ubuntu-latest
     defaults:
       run:
-        working-directory: ./Project-01-SalesAnalysis
+        working-directory: ./Project-01-Sales-Analysis
 
     services:
       # We define the database here so GitHub Actions can run it
