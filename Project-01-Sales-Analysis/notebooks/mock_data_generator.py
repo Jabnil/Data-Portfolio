@@ -41,7 +41,7 @@ df.loc[df.sample(5).index, 'sales_amount'] = -50.0
 df.loc[df.sample(2).index, 'sales_amount'] = 50000.0 # Extreme outlier
 
 # 3. Export to CSV
-df.to_csv('/data/raw/raw_ecommerce_sales.csv', index=False)
+df.to_csv('data/raw/raw_ecommerce_sales.csv', index=False)
 
 print("File 'raw_ecommerce_sales.csv' has been created with 1,025 rows.")
 print("It contains missing values, duplicates, and price outliers.")
