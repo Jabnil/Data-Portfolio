@@ -1,4 +1,4 @@
-![CI Status](https://github.com/Jabnil/Data-Portfolio/actions/workflows/ci.yml/badge.svg)
+![CI Status](https://github.com/Jabnil/Data-Portfolio/actions/workflows/project01_ci.yml/badge.svg)
 
 # Project 01 E-commerce Sales Analysis
 
