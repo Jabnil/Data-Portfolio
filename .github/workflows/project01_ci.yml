@@ -1,0 +1,63 @@
+name: Data Pipeline CI
+
+on:
+  push:
+    paths:
+      - 'Project-01-Sales-Analysis/**'
+  pull_request:
+    paths:
+      - 'Project-01-Sales-Analysis/**'
+
+jobs:
+  build-and-test:
+    runs-on: ubuntu-latest
+
+    services:
+      # We define the database here so GitHub Actions can run it
+      postgres:
+        image: postgres:15
+        env:
+          POSTGRES_USER: analyst
+          POSTGRES_PASSWORD: password123
+          POSTGRES_DB: ecommerce_sales
+        ports:
+          - 5432:5432
+        # Wait until postgres is healthy
+        options: >-
+          --health-cmd pg_isready
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
+    defaults:
+          run:
+            working-directory: ./Project-01-Sales-Analysis
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v4
+
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v3
+
+      - name: Build Docker Image
+        uses: docker/build-push-action@v5
+        with:
+          # context: specifies the root for the build
+          context: ./Project-01-Sales-Analysis
+          # file: specifies the path to the Dockerfile
+          file: ./Project-01-Sales-Analysis/Dockerfile
+          push: false # Set to true if you have a registry login step
+          tags: my-app:latest
+
+      - name: Start Containers
+        run: docker compose up -d
+
+     # - name: Run Data Cleaning Script
+      #  run: |
+       #   docker exec ecommerce_analysis python notebooks/data_cleaning.py
+        
+     # - name: Verify Cleaned Data Exists
+   #     run: |
+    #      docker exec ecommerce_analysis ls data/processed/cleaned_sales_data.csv
+
+      - name: Shut down Containers
+        run: docker compose down

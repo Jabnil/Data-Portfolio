@@ -1,5 +1,4 @@
-![Dynamic YAML Badge](https://img.shields.io/badge/dynamic/yaml?url=https%3A%2F%2Fgithub.com%2FJabnil%2FData-Portfolio%2Fblob%2Fmain%2FProject-01-Sales-Analysis%2F.github%2Fworkflows%2Fci.yml&query=%24.version)
-
+![CI Status](https://github.com/Jabnil/Data-Portfolio/actions/workflows/project01_ci.yml/badge.svg)
 
 # Project 01 E-commerce Sales Analysis
 
