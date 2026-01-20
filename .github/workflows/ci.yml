@@ -9,6 +9,9 @@ on:
 jobs:
   build-and-test:
     runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: ./Project-01-SalesAnalysis
 
     services:
       # We define the database here so GitHub Actions can run it
