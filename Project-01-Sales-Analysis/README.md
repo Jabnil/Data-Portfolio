@@ -12,3 +12,5 @@
 * SQL (PostgreSQL): For more advanced analysis.
 * Power BI: For data visualization.
 * Codespaces with Jupyter Notebooks: Best environment for experimentation and data exploration.
+
+### Data

@@ -4,6 +4,7 @@ on:
   push:
     paths:
       - 'Project-01-Sales-Analysis/**'
+  workflow_dispatch:
   pull_request:
     paths:
       - 'Project-01-Sales-Analysis/**'
