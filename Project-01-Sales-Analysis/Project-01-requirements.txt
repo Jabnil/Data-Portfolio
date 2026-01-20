@@ -1,25 +1,25 @@
 # Data Manipulation & Cleaning
-pandas==2.2.2
+pandas==2.1.0
 numpy==1.26.0
 
 # Visualization (for EDA within Notebooks)
-matplotlib==3.8.4
+matplotlib==3.8.0
 seaborn==0.13.0
 
 # Environment & Exporting
 jupyterlab==4.0.5
 openpyxl==3.1.2
 
-#From codespaces-jupyter template
-ipywidgets==8.1.2
-torch==2.8.0
-torchvision==0.23.0
-tqdm==4.66.4
-fonttools>=4.60.0
-filelock>=3.20.3
-
-# Database Connectivity To connect Python directly to SQL)
+# Database Connectivity (Optional: if connecting Python directly to SQL)
 sqlalchemy==2.0.21
 psycopg2-binary==2.9.9
+
+#From codespaces-jupyter template
+#ipywidgets==8.1.2
+#torch==2.8.0
+#torchvision==0.23.0
+#tqdm==4.66.4
+#fonttools>=4.60.0
+#filelock>=3.20.3
 
 # pip install -r Project-01-requirements.txt
