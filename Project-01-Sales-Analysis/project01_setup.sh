@@ -8,6 +8,7 @@ echo "🚀 Starting Project 1 Environment..."
 # 1. Start Docker containers in the background
 docker compose up -d
 
+
 echo "⏳ Waiting for PostgreSQL to be ready..."
 
 # 2. Loop until Postgres is accepting connections
