@@ -25,8 +25,8 @@ echo "🧹 Running data cleaning and ETL pipeline..."
 
 # 4. Run the Python scripts inside the analysis container
 docker exec ecommerce_analysis python notebooks/mock_data_generator.py
-docker exec ecommerce_analysis python notebooks/data_cleaning.py
-docker exec -e DB_HOST=db ecommerce_analysis python notebooks/load_to_sql.py
+#docker exec ecommerce_analysis python notebooks/data_cleaning.py
+#docker exec -e DB_HOST=db ecommerce_analysis python notebooks/load_to_sql.py
 
 echo "---------------------------------------------------"
 echo "🎉 Setup Complete!"
