@@ -26,3 +26,5 @@ services:
     depends_on:
       db:
         condition: service_healthy
+    # This line keeps the container running in the background for VS Code
+    command: sleep infinity

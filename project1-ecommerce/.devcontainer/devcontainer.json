@@ -1,0 +1,26 @@
+{
+    "name": "E-commerce Analyst Environment",
+    "dockerComposeFile": "../docker-compose.yml",
+    "service": "analysis",
+    "workspaceFolder": "/app",
+    "customizations": {
+        "vscode": {
+            "extensions": [
+                "ms-python.python",              // Essential for Python/Notebooks
+                "ms-python.vscode-pylance",
+                "mtxr.sqltools",                 // Database management in VS Code
+                "mtxr.sqltools-driver-pg",       // Postgres driver for SQLTools
+                "ms-azuretools.vscode-docker",
+                "njpwerner.autodocstring"        // Automated professional docstrings
+            ],
+            "settings": {
+                "python.defaultInterpreterPath": "/usr/local/bin/python",
+                "python.linting.enabled": true,
+                "python.linting.flake8Enabled": true,
+                "python.formatting.provider": "black"
+            }
+        }
+    },
+    "postCreateCommand": "bash .devcontainer/post-create.sh",
+    "remoteUser": "analyst"
+}
