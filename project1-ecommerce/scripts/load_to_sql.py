@@ -5,6 +5,7 @@ import logging
 
 path_dir = os.getcwd()+'/data/processed'
 file_path = f'{path_dir}/cleaned_sales_data.csv'
+print(file_path)
 df = pd.read_csv(file_path)
 
 # 1. Connection configuration
