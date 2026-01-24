@@ -10,4 +10,4 @@ python-dotenv==1.0.0
 
 # Quality & Testing
 pytest==7.4.2
-logging-config==1.0.0
+logging-config==1.0.4
