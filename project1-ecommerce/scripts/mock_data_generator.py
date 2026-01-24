@@ -4,7 +4,7 @@ import random
 from datetime import datetime, timedelta
 import os
 
-output_dir = os.getcwd()+'/data/raw/'
+output_dir = os.getcwd()+'/data/raw'
 print(output_dir)
 
 

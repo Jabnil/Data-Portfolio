@@ -2,7 +2,7 @@ import pandas as pd
 import numpy as np
 import os
 
-input_dir = os.getcwd()+'/data/raw/'
+input_dir = os.getcwd()+'/data/raw'
 print(input_dir)
 
 # 1. Load the raw data
@@ -29,7 +29,7 @@ df = df[(df['sales_amount'] > 0) & (df['quantity'] > 0)]
 df['profit_margin'] = (df['profit'] / df['sales_amount']) * 100
 
 # 7. Export Clean Data for SQL Import
-output_dir = os.getcwd()+'/data/processed/'
+output_dir = os.getcwd()+'/data/processed'
 print(output_dir)
 
 df.to_csv(f'{output_dir}/cleaned_sales_data.csv', index=False)
