@@ -3,7 +3,7 @@ from sqlalchemy import create_engine
 import os
 import logging
 
-path_dir = os.getcwd()+'data/processed'
+path_dir = os.getcwd()+'/data/processed'
 file_path = f'{path_dir}/cleaned_sales_data.csv'
 df = pd.read_csv(file_path)
 
