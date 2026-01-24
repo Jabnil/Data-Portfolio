@@ -25,8 +25,8 @@ docker exec -i ecommerce_db psql -U analyst -d ecommerce_sales < sql/schema_setu
 echo "🧹 Running data cleaning and ETL pipeline..."
 
 # 4. Run the Python scripts inside the analysis container
-#docker exec ecommerce_analysis python notebooks/mock_data_generator.py
-python notebooks/mock_data_generator.py
+docker exec ecommerce_analysis python notebooks/mock_data_generator.py
+#python notebooks/mock_data_generator.py
 
 #docker exec ecommerce_analysis python notebooks/data_cleaning.py
 #docker exec -e DB_HOST=db ecommerce_analysis python notebooks/load_to_sql.py
