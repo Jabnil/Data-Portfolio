@@ -8,7 +8,6 @@ echo "🚀 Starting Project 1 Environment..."
 # 1. Start Docker containers in the background
 docker compose up -d
 
-
 echo "⏳ Waiting for PostgreSQL to be ready..."
 
 # 2. Loop until Postgres is accepting connections
@@ -26,7 +25,6 @@ echo "🧹 Running data cleaning and ETL pipeline..."
 
 # 4. Run the Python scripts inside the analysis container
 docker exec ecommerce_analysis python notebooks/mock_data_generator.py
-#python notebooks/mock_data_generator.py
 
 #docker exec ecommerce_analysis python notebooks/data_cleaning.py
 #docker exec -e DB_HOST=db ecommerce_analysis python notebooks/load_to_sql.py
