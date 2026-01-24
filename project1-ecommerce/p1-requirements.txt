@@ -1,0 +1,13 @@
+# Core Data Science
+pandas==2.1.1
+numpy==1.26.0
+python-dateutil==2.8.2
+
+# Database & ETL
+SQLAlchemy==2.0.21
+psycopg2-binary==2.9.9
+python-dotenv==1.0.0
+
+# Quality & Testing
+pytest==7.4.2
+logging-config==1.0.0

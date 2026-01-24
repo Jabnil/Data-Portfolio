@@ -1,0 +1,28 @@
+version: '3.8'
+
+services:
+  db:
+    image: postgres:15-alpine
+    container_name: ecommerce_db
+    environment:
+      - POSTGRES_USER=analyst
+      - POSTGRES_PASSWORD=password123
+      - POSTGRES_DB=ecommerce_sales
+    ports:
+      - "5432:5432"
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U analyst -d ecommerce_sales"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+
+  analysis:
+    build: .
+    container_name: ecommerce_analysis
+    volumes:
+      - .:/app
+    environment:
+      - DATABASE_URL=postgresql://analyst:password123@db:5432/ecommerce_sales
+    depends_on:
+      db:
+        condition: service_healthy

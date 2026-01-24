@@ -1,19 +1,12 @@
-# This code will will generate a file named raw_ecommerce_sales.csv 
-# with 1,000 rows of data, including intentional errors (missing values, duplicates, and outliers)
-
 import pandas as pd
 import numpy as np
 import random
 from datetime import datetime, timedelta
 import os
 
-# Define the directory
-output_dir = os.getcwd()+'/data/raw'
+output_dir = os.getcwd()+'data/raw/'
 print(output_dir)
-# Create the directory if it doesn't exist
-if not os.path.exists(output_dir):
-    os.makedirs(output_dir)
-    print(f"Created directory: {output_dir}")
+
 
 # Set seed for reproducibility
 np.random.seed(42)
@@ -50,8 +43,9 @@ df.loc[df.sample(5).index, 'sales_amount'] = -50.0
 df.loc[df.sample(2).index, 'sales_amount'] = 50000.0 # Extreme outlier
 
 # 3. Export to CSV
-#df.to_csv('/data/raw/raw_ecommerce_sales.csv', index=False)
-df.to_csv(f'{output_dir}/raw_ecommerce_sales.csv', index=False)
 
-print("File 'raw_ecommerce_sales.csv' has been created with 1,025 rows.")
+df.to_csv(f'{output_dir}/raw_sales.csv', index=False)
+
+print("File 'raw_sales.csv' has been created with 1,025 rows.")
+print(f'{output_dir}/raw_sales.csv')
 print("It contains missing values, duplicates, and price outliers.")

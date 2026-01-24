@@ -1,0 +1,87 @@
+name: Production Data Pipeline CI
+
+on:
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+  workflow_dispatch: # Allows manual trigger from the GitHub Actions tab
+
+jobs:
+  quality-and-pipeline:
+    runs-on: ubuntu-latest
+
+    services:
+      # We use a service container for Postgres to mimic a production DB environment
+      postgres:
+        image: postgres:15-alpine
+        env:
+          POSTGRES_USER: analyst
+          POSTGRES_PASSWORD: password123
+          POSTGRES_DB: ecommerce_sales
+        ports:
+          - 5432:5432
+        options: >-
+          --health-cmd pg_isready
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
+
+    steps:
+      - name: 🛒 Checkout Repository
+        uses: actions/checkout@v4
+
+      - name: 🐍 Set up Python
+        uses: actions/checkout@v4
+        with:
+          python-version: "3.11"
+
+      - name: ⚡ Cache Python Packages
+        uses: actions/cache@v3
+        with:
+          path: ~/.cache/pip
+          key: ${{ runner.os }}-pip-${{ hashFiles('requirements.txt') }}
+          restore-keys: |
+            ${{ runner.os }}-pip-
+
+      - name: 🛠️ Install Dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install flake8
+          pip install -r p1-requirements.txt
+
+      - name: 🔍 Lint Code (PEP8 Check)
+        run: |
+          # Stop the build if there are Python syntax errors or undefined names
+          flake8 . --count --select=E9,F63,F7,F82 --show-source --statistics
+          # exit-zero treats all errors as warnings. 127 chars is the GitHub default.
+          flake8 . --count --exit-zero --max-complexity=10 --max-line-length=127 --statistics
+
+      - name: 🏗️ Build Docker Environment
+        run: docker compose build
+
+      - name: 🚀 Run Full ETL Pipeline
+        run: |
+          # 1. Start containers
+          docker compose up -d
+          
+          # 2. Initialize Schema
+          docker exec -i ecommerce_db psql -U analyst -d ecommerce_sales < sql/schema_setup.sql
+          
+          # 3. Generate Mock Data
+          docker exec ecommerce_analysis python scripts/mock_data_generator.py
+          
+          # 4. Clean Data
+          docker exec ecommerce_analysis python scripts/data_cleaning.py
+          
+          # 5. Load to SQL
+          docker exec -e DB_HOST=db ecommerce_analysis python scripts/load_to_sql.py
+
+      - name: 📊 Verify SQL Analysis
+        run: |
+          # Run one of your analysis queries to ensure data is queryable
+          docker exec -i ecommerce_db psql -U analyst -d ecommerce_sales -c "SELECT category, SUM(sales_amount) FROM sales_data GROUP BY 1;"
+
+      - name: 🛑 Shutdown Services
+        if: always()
+        run: docker compose down
