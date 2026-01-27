@@ -2,9 +2,11 @@ name: Production Data Pipeline CI
 
 on:
   push:
-    branches: [ "main" ]
+    paths:
+      - 'project1-ecommerce/**'
   pull_request:
-    branches: [ "main" ]
+    paths:
+      - 'project1-ecommerce/**'
   workflow_dispatch: # Allows manual trigger from the GitHub Actions tab
 
 jobs:
