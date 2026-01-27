@@ -4,9 +4,15 @@ import os
 import logging
 
 path_dir = os.getcwd()+'/data/processed'
+print(path_dir)
+
 file_path = f'{path_dir}/cleaned_sales_data.csv'
+
+print("Working with the following file:")
 print(file_path)
 df = pd.read_csv(file_path)
+
+
 
 # 1. Connection configuration
 # In Docker, the hostname is the service name 'db'. 

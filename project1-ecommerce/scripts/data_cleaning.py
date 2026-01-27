@@ -35,3 +35,5 @@ print(output_dir)
 df.to_csv(f'{output_dir}/cleaned_sales_data.csv', index=False)
 
 print("Data Cleaning Complete. Ready for SQL Import.")
+
+print(f'{output_dir}/cleaned_sales_data.csv')
