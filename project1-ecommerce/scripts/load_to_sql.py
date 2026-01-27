@@ -29,7 +29,7 @@ def load_to_postgres():
     engine = create_engine(db_url)
     
     try:
-        path_dir = os.getcwd()+'data/processed/'
+        path_dir = os.getcwd()+'/data/processed'
         file_path = f'{path_dir}/cleaned_sales_data.csv'
         df = pd.read_csv(file_path)
         
