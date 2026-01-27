@@ -57,8 +57,8 @@ jobs:
           # exit-zero treats all errors as warnings. 127 chars is the GitHub default.
           flake8 . --count --exit-zero --max-complexity=10 --max-line-length=127 --statistics
 
-      - name: 🏗️ Build Docker Environment
-        run: docker compose build
+      #- name: 🏗️ Build Docker Environment
+        #run: docker compose build
 
       - name: 🚀 Run Full ETL Pipeline
         run: |
