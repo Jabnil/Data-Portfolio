@@ -103,6 +103,6 @@ jobs:
 
           docker ps -a
 
-          docker system prune
+          docker system prune -a -f
 
           docker ps -a
