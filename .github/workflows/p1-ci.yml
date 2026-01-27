@@ -96,4 +96,13 @@ jobs:
 
       - name: 🛑 5. Shutdown Services
         if: always()
-        run: docker compose down
+        run: |
+          docker ps -a
+          
+          docker compose down
+
+          docker ps -a
+
+          docker system prune
+
+          docker ps -a
