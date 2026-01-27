@@ -1,4 +1,4 @@
-name: Production Data Pipeline CI
+name: Production Data Pipeline CI Project 1
 
 on:
   push:
@@ -28,7 +28,9 @@ jobs:
           --health-interval 10s
           --health-timeout 5s
           --health-retries 5
-
+    defaults:
+          run:
+            working-directory: ./project1-ecommerce
     steps:
       - name: 🛒 Checkout Repository
         uses: actions/checkout@v4
@@ -62,28 +64,36 @@ jobs:
       #- name: 🏗️ Build Docker Environment
         #run: docker compose build
 
-      - name: 🚀 Run Full ETL Pipeline
+      - name: 🚀 1. Create and start containers
         run: |
-          # 1. Start containers
           docker compose up -d
-          
-          # 2. Initialize Schema
+      
+      - name: ⏳ 2. Waiting for PostgreSQL to be ready
+        run: |
+          until docker exec ecommerce_db pg_isready -U analyst -d ecommerce_sales; do sleep 2 done
+
+      - name: 🧹 3. Running data cleaning and ETL pipeline
+        run: |    
+          # 3.1. Initialize Database Schema
           docker exec -i ecommerce_db psql -U analyst -d ecommerce_sales < sql/schema_setup.sql
           
-          # 3. Generate Mock Data
+          # 3.2. Generate Mock Data
           docker exec ecommerce_analysis python scripts/mock_data_generator.py
           
-          # 4. Clean Data
+          # 3.3. Clean Data
           docker exec ecommerce_analysis python scripts/data_cleaning.py
+
+          # 3.4. Verify Cleaned Data Exists
+          docker exec ecommerce_analysis ls data/processed/cleaned_sales_data.csv
           
-          # 5. Load to SQL
+          # 3.5. Load to SQL
           docker exec -e DB_HOST=db ecommerce_analysis python scripts/load_to_sql.py
 
-      - name: 📊 Verify SQL Analysis
+      - name: 📊 4. Verify SQL Analysis
         run: |
           # Run one of your analysis queries to ensure data is queryable
           docker exec -i ecommerce_db psql -U analyst -d ecommerce_sales -c "SELECT category, SUM(sales_amount) FROM sales_data GROUP BY 1;"
 
-      - name: 🛑 Shutdown Services
+      - name: 🛑 5. Shutdown Services
         if: always()
         run: docker compose down
