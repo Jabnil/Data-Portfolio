@@ -60,20 +60,11 @@ jobs:
           done
 
       - name: 🧹 3. Running data cleaning and ETL pipeline
-        run: |    
-          # 3.1. Initialize Database Schema
-          #docker exec -i ecommerce_db psql -U analyst -d ecommerce_sales < sql/schema_setup.sql
-          
-          # 3.2. Generate Mock Data
-          #docker exec ecommerce_analysis python scripts/mock_data_generator.py
-          
-          # 3.3. Clean Data
-          #docker exec ecommerce_analysis python scripts/data_cleaning.py
-
-          # 3.4. Verify Cleaned Data Exists
+        run: |
+          # 3.1. Verify Cleaned Data Exists
           docker exec ecommerce_analysis ls data/processed/cleaned_sales_data.csv
           
-          # 3.5. Load to SQL
+          # 3.2. Load to SQL
           docker exec -e DB_HOST=db ecommerce_analysis python scripts/load_to_sql.py
 
       - name: 📊 4. Verify SQL Analysis
@@ -84,12 +75,6 @@ jobs:
       - name: 🛑 5. Shutdown Services
         if: always()
         run: |
-          docker ps -a
-          
           docker compose down
-
-          docker ps -a
-
           docker system prune -a -f
 
-          docker ps -a
