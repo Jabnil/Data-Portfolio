@@ -1,5 +1,5 @@
 # 📈 E-commerce Insight Engine: End-to-End ETL & Analytics
-![CI Status](https://github.com/YOUR_USERNAME/ecommerce-sales-analysis/actions/workflows/p1-ci.yml/badge.svg)
+![CI Status](https://github.com/Jabnil/Data-Portfolio/actions/workflows/p1-ci.yml/badge.svg)
 
 ## 🎯 Project Overview
 This project delivers a production-grade **end-to-end data pipeline** designed to transform raw, fragmented e-commerce transaction data into actionable business intelligence. By automating the extraction, cleaning, and loading processes, I established a "Single Source of Truth" that identifies revenue leaks and growth opportunities.
