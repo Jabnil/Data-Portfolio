@@ -49,13 +49,8 @@ jobs:
           push: false # Set to true if you have a registry login step
           tags: my-app:latest
 
-      - name: Stop all running containers
-        run: docker stop $(docker ps -aq) || true
-
       - name: 🚀 1. Create and start containers
         run: |
-          #docker compose down --remove-orphans # Clean start
-          #docker compose up -d --build
           docker compose up -d
       
       - name: ⏳ 2. Waiting for PostgreSQL to be ready
@@ -63,20 +58,17 @@ jobs:
           until docker exec ecommerce_db pg_isready -U analyst -d ecommerce_sales; do
             sleep 2
           done
-      
-      #- name: Fix permissions for output directory
-      #  run: sudo chown -R $USER:$USER ${{ github.workspace }}
 
       - name: 🧹 3. Running data cleaning and ETL pipeline
         run: |    
           # 3.1. Initialize Database Schema
-          docker exec -i ecommerce_db psql -U analyst -d ecommerce_sales < sql/schema_setup.sql
+          #docker exec -i ecommerce_db psql -U analyst -d ecommerce_sales < sql/schema_setup.sql
           
           # 3.2. Generate Mock Data
-          docker exec ecommerce_analysis python scripts/mock_data_generator.py
+          #docker exec ecommerce_analysis python scripts/mock_data_generator.py
           
           # 3.3. Clean Data
-          docker exec ecommerce_analysis python scripts/data_cleaning.py
+          #docker exec ecommerce_analysis python scripts/data_cleaning.py
 
           # 3.4. Verify Cleaned Data Exists
           docker exec ecommerce_analysis ls data/processed/cleaned_sales_data.csv
