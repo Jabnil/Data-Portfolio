@@ -22,7 +22,7 @@ jobs:
           POSTGRES_PASSWORD: password123
           POSTGRES_DB: ecommerce_sales
         ports:
-          - 5432:5432
+          - 5434:5433
         # Wait until postgres is healthy
         options: >-
           --health-cmd pg_isready

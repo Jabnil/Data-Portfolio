@@ -10,20 +10,19 @@ on:
   workflow_dispatch: # Allows manual trigger from the GitHub Actions tab
 
 jobs:
- build-and-test:
+  quality-and-pipeline:
     runs-on: ubuntu-latest
 
     services:
-      # Database definition so GitHub Actions can run it
+      # We use a service container for Postgres to mimic a production DB environment
       postgres:
-        image: postgres:15
+        image: postgres:15-alpine
         env:
           POSTGRES_USER: analyst
           POSTGRES_PASSWORD: password123
           POSTGRES_DB: ecommerce_sales
         ports:
           - 5434:5433
-        # Wait until postgres is healthy
         options: >-
           --health-cmd pg_isready
           --health-interval 10s
@@ -33,30 +32,48 @@ jobs:
           run:
             working-directory: ./project1-ecommerce
     steps:
-      - name: 🛒 Checkout Code
-        uses: actions/checkout@v3
+      - name: 🛒 Checkout Repository
+        uses: actions/checkout@v4
 
-      - name: Set up Docker Buildx
-        uses: docker/setup-buildx-action@v2
-
-      - name: Build Docker Image
-        uses: docker/build-push-action@v5
+      - name: 🐍 Set up Python
+        uses: actions/checkout@v4
         with:
-          # context: specifies the root for the build
-          context: ./project1-ecommerce
-          # file: specifies the path to the Dockerfile
-          file: ./project1-ecommerce/Dockerfile
-          push: false # Set to true if you have a registry login step
-          tags: my-app:latest
+          python-version: "3.11"
+
+      - name: ⚡ Cache Python Packages
+        uses: actions/cache@v3
+        with:
+          path: ~/.cache/pip
+          key: ${{ runner.os }}-pip-${{ hashFiles('p1-requirements.txt') }}
+          restore-keys: |
+            ${{ runner.os }}-pip-
+
+      - name: 🛠️ Install Dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install flake8
+          pip install --no-cache-dir -r p1-requirements.txt
+
+      - name: 🔍 Lint Code (PEP8 Check)
+        run: |
+          # Stop the build if there are Python syntax errors or undefined names
+          flake8 . --count --select=E9,F63,F7,F82 --show-source --statistics
+          # exit-zero treats all errors as warnings. 127 chars is the GitHub default.
+          flake8 . --count --exit-zero --max-complexity=10 --max-line-length=127 --statistics
+
+      #- name: 🏗️ Build Docker Environment
+        #run: docker compose build
+
+      #- name: Find process using port 5433
+      #  run: sudo lsof -i :5433
 
       - name: Stop all running containers
         run: docker stop $(docker ps -aq) || true
 
       - name: 🚀 1. Create and start containers
         run: |
-          #docker compose down --remove-orphans # Clean start
-          #docker compose up -d --build
-          docker compose up -d
+          docker compose down --remove-orphans # Clean start
+          docker compose up -d --build
       
       - name: ⏳ 2. Waiting for PostgreSQL to be ready
         run: |
@@ -64,8 +81,8 @@ jobs:
             sleep 2
           done
       
-      #- name: Fix permissions for output directory
-      #  run: sudo chown -R $USER:$USER ${{ github.workspace }}
+      - name: Fix permissions for output directory
+        run: sudo chown -R $USER:$USER ${{ github.workspace }}
 
       - name: 🧹 3. Running data cleaning and ETL pipeline
         run: |    
