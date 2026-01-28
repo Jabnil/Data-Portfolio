@@ -80,6 +80,9 @@ jobs:
           until docker exec ecommerce_db pg_isready -U analyst -d ecommerce_sales; do
             sleep 2
           done
+      
+      - name: Fix permissions for output directory
+        run: sudo chown -R $USER:$USER ${{ github.workspace }}
 
       - name: 🧹 3. Running data cleaning and ETL pipeline
         run: |    
