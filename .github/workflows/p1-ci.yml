@@ -64,8 +64,8 @@ jobs:
       #- name: 🏗️ Build Docker Environment
         #run: docker compose build
 
-      - name: Find process using port 5433
-        run: sudo lsof -i :5433
+      #- name: Find process using port 5433
+      #  run: sudo lsof -i :5433
 
       - name: Stop all running containers
         run: docker stop $(docker ps -aq) || true
