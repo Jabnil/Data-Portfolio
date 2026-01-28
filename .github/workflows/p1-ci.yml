@@ -22,7 +22,7 @@ jobs:
           POSTGRES_PASSWORD: password123
           POSTGRES_DB: ecommerce_sales
         ports:
-          - 5433:5432
+          - 5434:5433
         options: >-
           --health-cmd pg_isready
           --health-interval 10s
@@ -63,6 +63,12 @@ jobs:
 
       #- name: 🏗️ Build Docker Environment
         #run: docker compose build
+
+      - name: Find process using port 5433
+        run: sudo lsof -i :5433
+
+      - name: Stop all running containers
+        run: docker stop $(docker ps -aq) || true
 
       - name: 🚀 1. Create and start containers
         run: |
